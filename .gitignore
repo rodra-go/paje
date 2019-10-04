@@ -1,0 +1,6 @@
+**/.ipynb_checkpoints
+**/*.pyc
+.*/
+**/*.save*
+**/*.csv
+
