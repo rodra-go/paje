@@ -3,7 +3,7 @@ FROM postgres:alpine
 # Create sudo user
 # USER root
 # Create a group and user
-RUN apk update && apk add unzip &&  && apk upgrade
+RUN apk update && apk add unzip && apk add whoiam && apk upgrade
 RUN whoiam
 # USER kong
 # WORKDIR /home/kong
