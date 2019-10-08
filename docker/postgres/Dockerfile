@@ -1,6 +1,7 @@
 FROM postgres:alpine
 
 # Create sudo user
+USER root
 RUN useradd -ms /bin/bash kong
 RUN echo "kong:password" | chpasswd
 RUN adduser kong sudo
