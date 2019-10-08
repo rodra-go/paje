@@ -1,5 +1,4 @@
-FROM postgres:alpine
-
+FROM postgres
 # Create sudo user
 # USER root
 # Create a group and user
