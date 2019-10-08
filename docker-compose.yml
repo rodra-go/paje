@@ -18,6 +18,8 @@ services:
     build: docker/jupyter
     volumes:
       - .:/home/jovyan
+    depends_on:
+      - "this_redis"
     entrypoint:
       - "tini"
       - "--"
@@ -28,6 +30,8 @@ services:
     build: docker/jupyter
     volumes:
       - .:/home/jovyan
+    depends_on:
+      - "this_redis"
     ports:
       - "5000:5000"
     entrypoint:
