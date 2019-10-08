@@ -2,9 +2,8 @@ FROM postgres:alpine
 
 # Create sudo user
 USER root
-RUN useradd -ms /bin/bash kong
-RUN echo "kong:password" | chpasswd
-RUN adduser kong sudo
+# Create a group and user
+RUN adduser -S appuser -G sudo
 USER kong
 # WORKDIR /home/kong
 # Install unzip
