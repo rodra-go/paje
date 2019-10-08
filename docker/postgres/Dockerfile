@@ -1,4 +1,4 @@
-FROM postgres
+FROM postgres:latest
 # Create sudo user
 # USER root
 # Create a group and user
