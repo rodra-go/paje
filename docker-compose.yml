@@ -8,6 +8,7 @@ services:
       - .:/home/jovyan
   this_postgres:
     build: docker/postgres
+    shm_size: '2gb'
     volumes:
       - postgres_data:/var/lib/postgresql/data
   this_redis:
