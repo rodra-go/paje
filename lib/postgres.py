@@ -59,6 +59,7 @@ def bulk_load_df(df, schema, table, temp_path = 'data/tmp/'):
         # Truncate the target table
         cur.execute('BEGIN;')
         cur.execute("TRUNCATE {}.{};".format(schema,table))
+        cur.execute("ALTER SEQUENCE {}.{}__id_seq RESTART;".format(schema,table))
         cur.execute('COMMIT;')
         print("Truncated {}".format(table))
         
