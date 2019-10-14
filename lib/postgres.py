@@ -59,16 +59,17 @@ def bulk_load_df(df, schema, table, temp_path = 'data/tmp/'):
         # Truncate the target table
         cur.execute('BEGIN;')
         cur.execute("TRUNCATE {}.{};".format(schema,table))
+        print("The table {}.{} has been successfully truncated.".format(schema,table))
         cur.execute("ALTER SEQUENCE {}.{}__id_seq RESTART;".format(schema,table))
-        cur.execute('COMMIT;')
-        print("Truncated {}".format(table))
+        print("The incremental _id for table {}.{} has been reset.".format(schema,table))
+        cur.execute('COMMIT;')        
         
         # Load table from the file with header
         cur.execute("BEGIN;")
         f = open(temp_csv_path, "r")
         cur.copy_expert("COPY {}.{}({}) FROM STDIN CSV HEADER QUOTE '\"'".format(schema,table,','.join(df.columns.values)), f)
         cur.execute("COMMIT;")
-        print("Loaded data into {}".format(table))
+        print("The data has been succesfully loaded to table {}.{}".format(schema,table))
         
         # Closing the connection
         conn.close()
