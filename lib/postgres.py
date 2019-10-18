@@ -63,7 +63,6 @@ def bulk_load_df(df, schema, table, temp_path = 'data/tmp/'):
         print("The table {}.{} has been successfully truncated.".format(schema,table))
         
         try:
-            cur.execute('BEGIN;')
             cur.execute("ALTER SEQUENCE {}.{}__id_seq RESTART;".format(schema,table))
             cur.execute('COMMIT;') 
             print("The incremental _id for table {}.{} has been reset.".format(schema,table))
@@ -71,7 +70,6 @@ def bulk_load_df(df, schema, table, temp_path = 'data/tmp/'):
             print("It wasn't possible to reset serial _id.")      
         
         # Load table from the file with header
-        cur.execute("BEGIN;")
         f = open(temp_csv_path, "r")
         cur.copy_expert("COPY {}.{}({}) FROM STDIN CSV HEADER QUOTE '\"'".format(schema,table,','.join(df.columns.values)), f)
         cur.execute("COMMIT;")
