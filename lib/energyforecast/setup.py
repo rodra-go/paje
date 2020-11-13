@@ -12,7 +12,7 @@ setup(name='trainer',
     license='MIT',
     install_requires=[
       'keras==2.1.6',
-      'tensorflow==1.8.0',
+      'tensorflow==2.3.1',
       'h5py'
     ],
     zip_safe=False)
