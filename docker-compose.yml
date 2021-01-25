@@ -1,48 +1,11 @@
-version: '3'
+version: '3.8'
 services:
-  this_jupyter:
-    build: docker/jupyter
-    ports:
-      - "8888:8888"
+
+  server:
+    container_name: paje
+    image: paje/1.0
+    build: docker/kedro-mlflow
+    network_mode: "host"
+    tty: True
     volumes:
-      - .:/home/jovyan
-  this_postgres:
-    build: docker/postgres
-    shm_size: '2gb'
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-  this_redis:
-    image: redis
-    volumes:
-      - redis_data:/data
-  this_worker:
-    build: docker/jupyter
-    volumes:
-      - .:/home/jovyan
-    depends_on:
-      - "this_redis"
-    entrypoint:
-      - "tini"
-      - "--"
-      - "rqworker"
-      - "-u"
-      - "redis://this_redis:6379"
-  this_monitor:
-    build: docker/jupyter
-    volumes:
-      - .:/home/jovyan
-    depends_on:
-      - "this_redis"
-    ports:
-      - "5000:5000"
-    entrypoint:
-      - "tini"
-      - "--"
-      - "rq-dashboard"
-      - "-H"
-      - "this_redis"
-      - "-p"
-      - "5000"
-volumes:
-  postgres_data:
-  redis_data:
+      - .:/usr/src/paje/
